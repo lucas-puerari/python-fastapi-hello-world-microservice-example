@@ -11,7 +11,9 @@ app = FastAPI()
 
 @app.get("/")
 def hello_world():
-    """Say Hello"""
+    """
+    Say Hello
+    """
 
     return { "message": "Hello World!" }
 
