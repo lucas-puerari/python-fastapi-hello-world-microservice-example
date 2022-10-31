@@ -6,3 +6,8 @@ repos:
         entry: pylint src
         language: system
         types: [python]
+      - id: pytest
+        name: pytest
+        entry: pytest src
+        language: system
+        types: [python]
