@@ -7,7 +7,7 @@ from fastapi import FastAPI
 
 from src.apis.liveness import liveness_handler
 from src.apis.readiness import readiness_handler
-from src.apis.helloWorld import hello_world_handler
+from src.apis.hello_world import hello_world_handler
 
 
 app = FastAPI(

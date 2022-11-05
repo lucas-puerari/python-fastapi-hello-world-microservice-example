@@ -1,5 +1,5 @@
 """
-Hello World tests
+Liveness tests
 """
 
 from fastapi.testclient import TestClient
@@ -10,12 +10,11 @@ from src.app import app
 client = TestClient(app)
 
 
-def test_hello_world():
+def test_liveness_test():
     """
-    Test say Hello
+    Test if the application is up and runnig
     """
 
-    response = client.get("/")
+    response = client.get("/-/healthz")
 
     assert response.status_code == 200
-    assert response.json() == { "message": "Hello World!" }

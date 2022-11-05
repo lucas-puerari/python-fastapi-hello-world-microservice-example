@@ -1,10 +1,10 @@
 """
-Hello World example
+Hello World route
 """
 
 from fastapi import APIRouter, status
 
-from src.apis.helloWorld.hello_world_schema import HelloWordlResponse
+from src.apis.hello_world.hello_world_schema import HelloWordlResponse
 
 
 router = APIRouter()
