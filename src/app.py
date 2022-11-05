@@ -6,7 +6,7 @@ import uvicorn
 from fastapi import FastAPI
 
 
-app = FastAPI()
+app = FastAPI(openapi_url="/documentation/json")
 
 
 @app.get("/")
