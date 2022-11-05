@@ -4,6 +4,8 @@ EXPOSE 3000
 WORKDIR /app
 
 ADD  . /app
+
+RUN pip install --upgrade pip 
 RUN pip install -r requirements.txt
 
 
@@ -19,4 +21,4 @@ LABEL maintainer="%CUSTOM_PLUGIN_CREATOR_USERNAME%" \
       eu.mia-platform.language="Python" \
       eu.mia-platform.framework="FastAPI"
 
-CMD ["python", "./src/app.py"]
+CMD ["python", "-m", "src.app"]
