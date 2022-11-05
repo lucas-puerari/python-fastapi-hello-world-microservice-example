@@ -1,8 +1,8 @@
 """
-Hello World Example
+Hello World example
 """
 
-from fastapi import APIRouter
+from fastapi import APIRouter, status
 
 from apis.helloWorld.hello_world_schema import HelloWordlResponse
 
@@ -13,7 +13,8 @@ router = APIRouter()
 @router.get(
     "/",
     response_model=HelloWordlResponse,
-    tags=["hello world"]
+    status_code=status.HTTP_200_OK,
+    tags=["Hello World"]
 )
 def hello_world():
     """
