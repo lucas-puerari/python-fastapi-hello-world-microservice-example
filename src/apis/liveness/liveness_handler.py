@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/healthz",
+    "/-/healthz",
     status_code=status.HTTP_200_OK,
     tags=["Liveness"]
 )
