@@ -4,7 +4,7 @@ Hello World example
 
 from fastapi import APIRouter, status
 
-from apis.helloWorld.hello_world_schema import HelloWordlResponse
+from src.apis.helloWorld.hello_world_schema import HelloWordlResponse
 
 
 router = APIRouter()

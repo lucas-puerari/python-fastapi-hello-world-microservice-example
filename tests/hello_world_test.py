@@ -4,7 +4,7 @@ This is a sample test file
 
 from fastapi.testclient import TestClient
 
-from app import app
+from src.app import app
 
 
 client = TestClient(app)

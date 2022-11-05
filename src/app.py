@@ -5,9 +5,9 @@ Where everything begins...
 import uvicorn
 from fastapi import FastAPI
 
-from apis.liveness import liveness_handler
-from apis.readiness import readiness_handler
-from apis.helloWorld import hello_world_handler
+from src.apis.liveness import liveness_handler
+from src.apis.readiness import readiness_handler
+from src.apis.helloWorld import hello_world_handler
 
 
 app = FastAPI(openapi_url="/documentation/json")
