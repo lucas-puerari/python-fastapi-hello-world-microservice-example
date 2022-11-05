@@ -10,7 +10,11 @@ from src.apis.readiness import readiness_handler
 from src.apis.helloWorld import hello_world_handler
 
 
-app = FastAPI(openapi_url="/documentation/json")
+app = FastAPI(
+    openapi_url="/documentation/json",
+    docs_url=None,
+    redoc_url=None
+)
 
 app.include_router(liveness_handler.router)
 app.include_router(readiness_handler.router)
