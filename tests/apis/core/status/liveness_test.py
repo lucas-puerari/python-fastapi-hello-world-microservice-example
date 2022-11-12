@@ -18,3 +18,4 @@ def test_liveness_test():
     response = client.get("/-/healthz")
 
     assert response.status_code == 200
+    assert response.json() == {"statusOk": True}
