@@ -1,16 +1,4 @@
-"""
-Hello World tests
-"""
-
-from fastapi.testclient import TestClient
-
-from src.app import app
-
-
-client = TestClient(app)
-
-
-def test_hello_world():
+def test_hello_world(client):
     """
     Test say Hello
     """

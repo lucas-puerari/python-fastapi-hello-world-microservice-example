@@ -1,7 +1,3 @@
-"""
-Hello World route
-"""
-
 from fastapi import APIRouter, status
 
 from src.apis.schemas.message_schema import MessageResponse

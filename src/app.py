@@ -1,7 +1,3 @@
-"""
-Where everything begins...
-"""
-
 import uvicorn
 from fastapi import FastAPI
 

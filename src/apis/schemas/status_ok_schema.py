@@ -1,7 +1,3 @@
-"""
-Status Ok Schema
-"""
-
 from pydantic import BaseModel
 
 

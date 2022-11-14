@@ -1,7 +1,3 @@
-"""
-Check-up route
-"""
-
 from fastapi import APIRouter, status
 
 from src.apis.schemas.status_ok_schema import StatusOkResponse
