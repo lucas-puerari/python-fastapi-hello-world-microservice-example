@@ -401,6 +401,29 @@ class TestMiaPlatformClient:
         ):
             mia_platform_client.patch(BASEURL, _id)
 
+    def test_500_patch(self, server):
+        """
+        TODO
+        """
+
+        _id = 1
+        url = f'{BASEURL}/{_id}/'
+
+        httpretty.register_uri(
+            method=httpretty.PATCH,
+            uri=url,
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
+        mia_platform_client = MiaPlatformClient()
+
+        with pytest.raises(
+            Exception,
+            match=f"Error - MiaPlatformClient PATCH {url}"
+                f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
+        ):
+            mia_platform_client.patch(BASEURL, _id)
+
     # DELETE
 
     def test_204_delete(self, server):
