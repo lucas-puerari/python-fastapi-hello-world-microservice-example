@@ -1,9 +1,14 @@
 repos:
   - repo: local
     hooks:
-      - id: pylint
-        name: pylint
+      - id: pylint src
+        name: pylint src
         entry: python -m pylint src
+        language: system
+        types: [python]
+      - id: pylint tests
+        name: pylint tests
+        entry: python -m pylint tests
         language: system
         types: [python]
       - id: pytest
@@ -13,6 +18,11 @@ repos:
         types: [python]
       - id: coverage
         name: coverage
+        entry: coverage run -m pytest tests
+        language: system
+        types: [python]
+      - id: coverage report
+        name: coverage report
         entry: coverage html
         language: system
         types: [python]
