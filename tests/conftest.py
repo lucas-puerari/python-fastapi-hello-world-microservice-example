@@ -21,7 +21,7 @@ def server():
     This server can receive requests and mock the response
     """
 
-    httpretty.enable(verbose=True, allow_net_connect=False)
+    httpretty.enable(verbose=False, allow_net_connect=False)
     yield
     httpretty.disable()
     httpretty.reset()
