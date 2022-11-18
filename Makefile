@@ -7,4 +7,4 @@ test:
 
 coverage:
 	coverage run -m pytest tests
-	coverage report
+	coverage html
