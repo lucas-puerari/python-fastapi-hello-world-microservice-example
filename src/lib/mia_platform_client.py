@@ -65,22 +65,76 @@ class MiaPlatformClient():
         return response
 
     def count(self, url, **kwargs):
-        return self.session.get(f'{url}/count/', **kwargs)
+        logging.debug(f'Start - MiaPlatformClient COUNT {url}')
+
+        response = self.session.get(f'{url}/count/', **kwargs)
+
+        if (response.status_code < 200 or response.status_code >= 300):
+            message = f"Error - MiaPlatformClient COUNT {url}" \
+                f" respond with status code {response.status_code}"
+            logging.error(message)
+            raise Exception(message)
+
+        logging.debug(f'End - MiaPlatformClient GET BY ID {url}')
+
+        return response
 
     def post(self, url, data=None, json=None, **kwargs):
-        return self.session.post(self, url, data, json, **kwargs)
+        logging.debug(f'Start - MiaPlatformClient POST {url}')
+
+        response = self.session.post(self, url, data, json, **kwargs)
+
+        if (response.status_code < 200 or response.status_code >= 300):
+            message = f"Error - MiaPlatformClient POST {url}" \
+                f" respond with status code {response.status_code}"
+            logging.error(message)
+            raise Exception(message)
+
+        logging.debug(f'End - MiaPlatformClient POST {url}')
+
+        return response
 
     def put(self, url, data=None, **kwargs):
-        return self.session.put(self, url, data, **kwargs)
+        logging.debug(f'Start - MiaPlatformClient PUT {url}')
+
+        response = self.session.put(self, url, data, **kwargs)
+
+        if (response.status_code < 200 or response.status_code >= 300):
+            message = f"Error - MiaPlatformClient PUT {url}" \
+                f" respond with status code {response.status_code}"
+            logging.error(message)
+            raise Exception(message)
+
+        logging.debug(f'End - MiaPlatformClient PUT {url}')
+
+        return response
 
     def patch(self, url, data=None, **kwargs):
-        return self.session.patch(self, url, data, **kwargs)
+        logging.debug(f'Start - MiaPlatformClient PATCH {url}')
+
+        response = self.session.patch(self, url, data, **kwargs)
+
+        if (response.status_code < 200 or response.status_code >= 300):
+            message = f"Error - MiaPlatformClient PATCH {url}" \
+                f" respond with status code {response.status_code}"
+            logging.error(message)
+            raise Exception(message)
+
+        logging.debug(f'End - MiaPlatformClient PATCH {url}')
+
+        return response
 
     def delete(self, url, **kwargs):
-        return self.session.delete(self, url, **kwargs)
+        logging.debug(f'Start - MiaPlatformClient DELETE {url}')
 
-    def options(self, url, **kwargs):
-        return self.session.options(self, url, **kwargs)
+        response = self.session.delete(self, url, **kwargs)
 
-    def head(self, url, **kwargs):
-        return self.session.head(self, url, **kwargs)
+        if (response.status_code < 200 or response.status_code >= 300):
+            message = f"Error - MiaPlatformClient DELETE {url}" \
+                f" respond with status code {response.status_code}"
+            logging.error(message)
+            raise Exception(message)
+
+        logging.debug(f'End - MiaPlatformClient DELETE {url}')
+
+        return response

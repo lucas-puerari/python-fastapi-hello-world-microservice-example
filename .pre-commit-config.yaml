@@ -11,3 +11,8 @@ repos:
         entry: python -m pytest tests
         language: system
         types: [python]
+      - id: coverage
+        name: pytest
+        entry: coverage html
+        language: system
+        types: [python]
