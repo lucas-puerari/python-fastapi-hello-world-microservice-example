@@ -155,3 +155,31 @@ class TestMiaPlatformClient:
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
             mia_platform_client.get_by_id(BASEURL, _id)
+
+    def test_200_count(self, server):
+        """
+        TODO
+        """
+
+        url = f'{BASEURL}/count/'
+        body = '0'
+
+        httpretty.register_uri(
+            method=httpretty.GET,
+            uri=url,
+            status=status.HTTP_200_OK,
+            body=body
+        )
+
+        mia_platform_client = MiaPlatformClient()
+        response = mia_platform_client.count(BASEURL)
+        headers = response.request.headers.items()
+
+        # Request
+        assert response.request.url == url
+        assert response.request.method == httpretty.GET
+        assert all(param in headers for param in REQUIRED_HEADERS)
+
+        # Response
+        assert response.status_code == status.HTTP_200_OK
+        assert response.text == body
