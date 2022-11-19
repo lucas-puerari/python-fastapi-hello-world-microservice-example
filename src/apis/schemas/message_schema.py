@@ -1,7 +1,3 @@
-"""
-Message Schema
-"""
-
 from pydantic import BaseModel
 
 

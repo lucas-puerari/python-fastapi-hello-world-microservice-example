@@ -179,7 +179,7 @@ good-names=i,
            j,
            k,
            ex,
-           Run,
+           Run           
            _
 
 # Good variable names regexes, separated by a comma. If names match any regex,
@@ -415,7 +415,14 @@ disable=raw-checker-failed,
         suppressed-message,
         useless-suppression,
         deprecated-pragma,
-        use-symbolic-message-instead
+        use-symbolic-message-instead,
+        missing-function-docstring,
+        too-many-function-args,
+        too-few-public-methods,
+        duplicate-code,
+        missing-module-docstring,
+        logging-fstring-interpolation,
+        too-many-public-methods
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option

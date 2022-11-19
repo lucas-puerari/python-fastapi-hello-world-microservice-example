@@ -1,16 +1,4 @@
-"""
-Liveness tests
-"""
-
-from fastapi.testclient import TestClient
-
-from src.app import app
-
-
-client = TestClient(app)
-
-
-def test_liveness_test():
+def test_liveness(client):
     """
     Test if the application is up and runnig
     """

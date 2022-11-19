@@ -1,16 +1,4 @@
-"""
-Check-up tests
-"""
-
-from fastapi.testclient import TestClient
-
-from src.app import app
-
-
-client = TestClient(app)
-
-
-def test_checkup_test():
+def test_checkup(client):
     """
     Test the availability of all the service's dependencies
     """
