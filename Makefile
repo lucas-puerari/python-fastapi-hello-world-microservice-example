@@ -1,3 +1,6 @@
+start:
+	python -m src.app
+
 lint:
 	python -m pylint src
 	python -m pylint tests

@@ -1,24 +1,9 @@
-# pylint: disable=unused-argument
-
 import json
 import pytest
 import httpretty
 from fastapi import status
 
 from src.lib.mia_platform_client import MiaPlatformClient
-from src.apis.schemas.header_schema import HeaderRequest
-
-
-REQUIRED_HEADERS = HeaderRequest(
-    CONFIGURATION_PATH='./',
-    CONFIGURATION_FILE_NAME='test-config.test',
-    BACKOFFICE_HEADER_KEY='isbackoffice',
-    USERINFO_URL='http://auth0-client/userinfo',
-    CLIENT_TYPE_HEADER_KEY='client-type',
-).__dict__.items()
-
-
-BASEURL = 'http://testserver'
 
 
 class TestMiaPlatformClient:
@@ -26,14 +11,24 @@ class TestMiaPlatformClient:
     Test all functionalities of Mia Platform Client
     """
 
-    # GET
+    def validate_sent_headers(self, required_headers, response):
+        """
+        TODO
+        """
+
+        headers = response.request.headers.items()
+        assert all(param in headers for param in required_headers)
+
+    # Get
 
     def test_200_get(self, server):
         """
         TODO
         """
 
-        url = f'{BASEURL}/'
+        baseurl, required_headers = server
+
+        url = f'{baseurl}/'
         body = [{'message': 'Hi :)'}]
 
         httpretty.register_uri(
@@ -45,30 +40,30 @@ class TestMiaPlatformClient:
 
         mia_platform_client = MiaPlatformClient()
         response = mia_platform_client.get(url)
-        headers = response.request.headers.items()
 
         # Request
         assert response.request.url == url
         assert response.request.method == httpretty.GET
-        assert all(param in headers for param in REQUIRED_HEADERS)
 
         # Response
         assert response.status_code == status.HTTP_200_OK
         assert response.json() == body
+
+        self.validate_sent_headers(required_headers, response)
 
     def test_500_get(self, server):
         """
         TODO
         """
 
-        url = f'{BASEURL}/'
-        body = ''
+        baseurl, required_headers = server
+
+        url = f'{baseurl}/'
 
         httpretty.register_uri(
             method=httpretty.GET,
             uri=url,
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            body=body
         )
 
         mia_platform_client = MiaPlatformClient()
@@ -78,17 +73,28 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient GET {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            mia_platform_client.get(url)
+            response = mia_platform_client.get(url)
 
-    # GET BY ID
+            # Request
+            assert response.request.url == url
+            assert response.request.method == httpretty.GET
+
+            # Response
+            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+
+            self.validate_sent_headers(required_headers, response)
+
+    # Get by id
 
     def test_200_get_by_id(self, server):
         """
         TODO
         """
 
+        baseurl, required_headers = server
+
         _id = 1
-        url = f'{BASEURL}/{_id}/'
+        url = f'{baseurl}/{_id}/'
         body = {'message': 'Hi :)'}
 
         httpretty.register_uri(
@@ -99,25 +105,27 @@ class TestMiaPlatformClient:
         )
 
         mia_platform_client = MiaPlatformClient()
-        response = mia_platform_client.get_by_id(BASEURL, _id)
-        headers = response.request.headers.items()
+        response = mia_platform_client.get_by_id(baseurl, _id)
 
         # Request
         assert response.request.url == url
         assert response.request.method == httpretty.GET
-        assert all(param in headers for param in REQUIRED_HEADERS)
 
         # Response
         assert response.status_code == status.HTTP_200_OK
         assert response.json() == body
+
+        self.validate_sent_headers(required_headers, response)
 
     def test_404_get_by_id(self, server):
         """
         TODO
         """
 
+        baseurl, required_headers = server
+
         _id = 1
-        url = f'{BASEURL}/{_id}/'
+        url = f'{baseurl}/{_id}/'
 
         httpretty.register_uri(
             method=httpretty.GET,
@@ -132,15 +140,26 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient GET BY ID {url}"
                 f" respond with status code {status.HTTP_404_NOT_FOUND}"
         ):
-            mia_platform_client.get_by_id(BASEURL, _id)
+            response = mia_platform_client.get_by_id(baseurl, _id)
+
+            # Request
+            assert response.request.url == url
+            assert response.request.method == httpretty.GET
+
+            # Response
+            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+
+            self.validate_sent_headers(required_headers, response)
 
     def test_500_get_by_id(self, server):
         """
         TODO
         """
 
+        baseurl, required_headers = server
+
         _id = 1
-        url = f'{BASEURL}/{_id}/'
+        url = f'{baseurl}/{_id}/'
 
         httpretty.register_uri(
             method=httpretty.GET,
@@ -155,16 +174,27 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient GET BY ID {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            mia_platform_client.get_by_id(BASEURL, _id)
+            response = mia_platform_client.get_by_id(baseurl, _id)
 
-    # COUNT
+            # Request
+            assert response.request.url == url
+            assert response.request.method == httpretty.GET
+
+            # Response
+            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+
+            self.validate_sent_headers(required_headers, response)
+
+    # Count
 
     def test_200_count(self, server):
         """
         TODO
         """
 
-        url = f'{BASEURL}/count/'
+        baseurl, required_headers = server
+
+        url = f'{baseurl}/count/'
         body = '0'
 
         httpretty.register_uri(
@@ -175,24 +205,26 @@ class TestMiaPlatformClient:
         )
 
         mia_platform_client = MiaPlatformClient()
-        response = mia_platform_client.count(BASEURL)
-        headers = response.request.headers.items()
+        response = mia_platform_client.count(baseurl)
 
         # Request
         assert response.request.url == url
         assert response.request.method == httpretty.GET
-        assert all(param in headers for param in REQUIRED_HEADERS)
 
         # Response
         assert response.status_code == status.HTTP_200_OK
         assert response.json() == body
+
+        self.validate_sent_headers(required_headers, response)
 
     def test_500_count(self, server):
         """
         TODO
         """
 
-        url = f'{BASEURL}/count/'
+        baseurl, required_headers = server
+
+        url = f'{baseurl}/count/'
         body = '0'
 
         httpretty.register_uri(
@@ -209,16 +241,27 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient COUNT {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            mia_platform_client.count(BASEURL)
+            response = mia_platform_client.count(baseurl)
 
-    # POST
+            # Request
+            assert response.request.url == url
+            assert response.request.method == httpretty.GET
+
+            # Response
+            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+
+            self.validate_sent_headers(required_headers, response)
+
+    # Post
 
     def test_201_post(self, server):
         """
         TODO
         """
 
-        url = f'{BASEURL}/'
+        baseurl, required_headers = server
+
+        url = f'{baseurl}/'
         body = {'key': 'value'}
 
         httpretty.register_uri(
@@ -229,24 +272,26 @@ class TestMiaPlatformClient:
         )
 
         mia_platform_client = MiaPlatformClient()
-        response = mia_platform_client.post(BASEURL, data=body)
-        headers = response.request.headers.items()
+        response = mia_platform_client.post(baseurl, data=body)
 
         # Request
         assert response.request.url == url
         assert response.request.method == httpretty.POST
-        assert all(param in headers for param in REQUIRED_HEADERS)
 
         # Response
         assert response.status_code == status.HTTP_201_CREATED
         assert response.json() == body
+
+        self.validate_sent_headers(required_headers, response)
 
     def test_500_post(self, server):
         """
         TODO
         """
 
-        url = f'{BASEURL}/'
+        baseurl, required_headers = server
+
+        url = f'{baseurl}/'
         body = {'key': 'value'}
 
         httpretty.register_uri(
@@ -263,16 +308,27 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient POST {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            mia_platform_client.post(url, data=body)
+            response = mia_platform_client.post(url, data=body)
 
-    # PUT
+            # Request
+            assert response.request.url == url
+            assert response.request.method == httpretty.POST
+
+            # Response
+            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+
+            self.validate_sent_headers(required_headers, response)
+
+    # Put
 
     def test_200_put(self, server):
         """
         TODO
         """
 
-        url = f'{BASEURL}/'
+        baseurl, required_headers = server
+
+        url = f'{baseurl}/'
         body = {'key': 'value'}
 
         httpretty.register_uri(
@@ -283,24 +339,26 @@ class TestMiaPlatformClient:
         )
 
         mia_platform_client = MiaPlatformClient()
-        response = mia_platform_client.put(BASEURL, data=body)
-        headers = response.request.headers.items()
+        response = mia_platform_client.put(baseurl, data=body)
 
         # Request
         assert response.request.url == url
         assert response.request.method == httpretty.PUT
-        assert all(param in headers for param in REQUIRED_HEADERS)
 
         # Response
         assert response.status_code == status.HTTP_200_OK
         assert response.json() == body
+
+        self.validate_sent_headers(required_headers, response)
 
     def test_201_put(self, server):
         """
         TODO
         """
 
-        url = f'{BASEURL}/'
+        baseurl, required_headers = server
+
+        url = f'{baseurl}/'
         body = {'key': 'value'}
 
         httpretty.register_uri(
@@ -311,24 +369,26 @@ class TestMiaPlatformClient:
         )
 
         mia_platform_client = MiaPlatformClient()
-        response = mia_platform_client.put(BASEURL, data=body)
-        headers = response.request.headers.items()
+        response = mia_platform_client.put(baseurl, data=body)
 
         # Request
         assert response.request.url == url
         assert response.request.method == httpretty.PUT
-        assert all(param in headers for param in REQUIRED_HEADERS)
 
         # Response
         assert response.status_code == status.HTTP_201_CREATED
         assert response.json() == body
+
+        self.validate_sent_headers(required_headers, response)
 
     def test_500_put(self, server):
         """
         TODO
         """
 
-        url = f'{BASEURL}/'
+        baseurl, required_headers = server
+
+        url = f'{baseurl}/'
         body = {'key': 'value'}
 
         httpretty.register_uri(
@@ -345,17 +405,28 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient PUT {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            mia_platform_client.put(url, json=body)
+            response = mia_platform_client.put(url, json=body)
 
-    # PATCH
+            # Request
+            assert response.request.url == url
+            assert response.request.method == httpretty.PUT
+
+            # Response
+            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+
+            self.validate_sent_headers(required_headers, response)
+
+    # Patch
 
     def test_200_patch(self, server):
         """
         TODO
         """
 
+        baseurl, required_headers = server
+
         _id = 1
-        url = f'{BASEURL}/{_id}/'
+        url = f'{baseurl}/{_id}/'
         body = {'key': 'value'}
 
         httpretty.register_uri(
@@ -366,25 +437,27 @@ class TestMiaPlatformClient:
         )
 
         mia_platform_client = MiaPlatformClient()
-        response = mia_platform_client.patch(BASEURL, _id, data=body)
-        headers = response.request.headers.items()
+        response = mia_platform_client.patch(baseurl, _id, data=body)
 
         # Request
         assert response.request.url == url
         assert response.request.method == httpretty.PATCH
-        assert all(param in headers for param in REQUIRED_HEADERS)
 
         # Response
         assert response.status_code == status.HTTP_200_OK
         assert response.json() == body
+
+        self.validate_sent_headers(required_headers, response)
 
     def test_404_patch(self, server):
         """
         TODO
         """
 
+        baseurl, required_headers = server
+
         _id = 1
-        url = f'{BASEURL}/{_id}/'
+        url = f'{baseurl}/{_id}/'
 
         httpretty.register_uri(
             method=httpretty.PATCH,
@@ -399,15 +472,26 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient PATCH {url}"
                 f" respond with status code {status.HTTP_404_NOT_FOUND}"
         ):
-            mia_platform_client.patch(BASEURL, _id)
+            response = mia_platform_client.patch(baseurl, _id)
+
+            # Request
+            assert response.request.url == url
+            assert response.request.method == httpretty.PATCH
+
+            # Response
+            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+
+            self.validate_sent_headers(required_headers, response)
 
     def test_500_patch(self, server):
         """
         TODO
         """
 
+        baseurl, required_headers = server
+
         _id = 1
-        url = f'{BASEURL}/{_id}/'
+        url = f'{baseurl}/{_id}/'
 
         httpretty.register_uri(
             method=httpretty.PATCH,
@@ -422,16 +506,27 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient PATCH {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            mia_platform_client.patch(BASEURL, _id)
+            response = mia_platform_client.patch(baseurl, _id)
 
-    # DELETE
+            # Request
+            assert response.request.url == url
+            assert response.request.method == httpretty.PATCH
+
+            # Response
+            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+
+            self.validate_sent_headers(required_headers, response)
+
+    # Delete
 
     def test_204_delete(self, server):
         """
         TODO
         """
 
-        url = f'{BASEURL}/'
+        baseurl, required_headers = server
+
+        url = f'{baseurl}/'
 
         httpretty.register_uri(
             method=httpretty.DELETE,
@@ -441,22 +536,24 @@ class TestMiaPlatformClient:
 
         mia_platform_client = MiaPlatformClient()
         response = mia_platform_client.delete(url)
-        headers = response.request.headers.items()
 
         # Request
         assert response.request.url == url
         assert response.request.method == httpretty.DELETE
-        assert all(param in headers for param in REQUIRED_HEADERS)
 
         # Response
         assert response.status_code == status.HTTP_204_NO_CONTENT
+
+        self.validate_sent_headers(required_headers, response)
 
     def test_500_delete(self, server):
         """
         TODO
         """
 
-        url = f'{BASEURL}/'
+        baseurl, required_headers = server
+
+        url = f'{baseurl}/'
 
         httpretty.register_uri(
             method=httpretty.DELETE,
@@ -471,17 +568,28 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient DELETE {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            mia_platform_client.delete(url)
+            response = mia_platform_client.delete(url)
 
-    # DELETE BY ID
+            # Request
+            assert response.request.url == url
+            assert response.request.method == httpretty.DELETE
+
+            # Response
+            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+
+            self.validate_sent_headers(required_headers, response)
+
+    # Delete by id
 
     def test_204_delete_by_id(self, server):
         """
         TODO
         """
 
+        baseurl, required_headers = server
+
         _id = 1
-        url = f'{BASEURL}/{_id}/'
+        url = f'{baseurl}/{_id}/'
 
         httpretty.register_uri(
             method=httpretty.DELETE,
@@ -490,24 +598,26 @@ class TestMiaPlatformClient:
         )
 
         mia_platform_client = MiaPlatformClient()
-        response = mia_platform_client.delete_by_id(BASEURL, _id)
-        headers = response.request.headers.items()
+        response = mia_platform_client.delete_by_id(baseurl, _id)
 
         # Request
         assert response.request.url == url
         assert response.request.method == httpretty.DELETE
-        assert all(param in headers for param in REQUIRED_HEADERS)
 
         # Response
         assert response.status_code == status.HTTP_204_NO_CONTENT
+
+        self.validate_sent_headers(required_headers, response)
 
     def test_404_delete_by_id(self, server):
         """
         TODO
         """
 
+        baseurl, required_headers = server
+
         _id = 1
-        url = f'{BASEURL}/{_id}/'
+        url = f'{baseurl}/{_id}/'
 
         httpretty.register_uri(
             method=httpretty.DELETE,
@@ -522,15 +632,26 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient DELETE BY ID {url}"
                 f" respond with status code {status.HTTP_404_NOT_FOUND}"
         ):
-            mia_platform_client.delete_by_id(BASEURL, _id)
+            response = mia_platform_client.delete_by_id(baseurl, _id)
+
+            # Request
+            assert response.request.url == url
+            assert response.request.method == httpretty.DELETE
+
+            # Response
+            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+
+            self.validate_sent_headers(required_headers, response)
 
     def test_500_delete_by_id(self, server):
         """
         TODO
         """
 
+        baseurl, required_headers = server
+
         _id = 1
-        url = f'{BASEURL}/{_id}/'
+        url = f'{baseurl}/{_id}/'
 
         httpretty.register_uri(
             method=httpretty.DELETE,
@@ -545,4 +666,13 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient DELETE BY ID {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            mia_platform_client.delete_by_id(BASEURL, _id)
+            response = mia_platform_client.delete_by_id(baseurl, _id)
+
+            # Request
+            assert response.request.url == url
+            assert response.request.method == httpretty.DELETE
+
+            # Response
+            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+
+            self.validate_sent_headers(required_headers, response)

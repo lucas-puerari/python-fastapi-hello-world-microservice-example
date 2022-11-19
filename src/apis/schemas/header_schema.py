@@ -6,8 +6,9 @@ class HeaderRequest(BaseModel):
     Mia Platform required headers
     """
 
-    CONFIGURATION_PATH: str
-    CONFIGURATION_FILE_NAME: str
+    LOG_LEVEL: str
+    USERID_HEADER_KEY: str
+    GROUPS_HEADER_KEY: str
+    CLIENTTYPE_HEADER_KEY: str
     BACKOFFICE_HEADER_KEY: str
-    USERINFO_URL: str
-    CLIENT_TYPE_HEADER_KEY: str
+    MICROSERVICE_GATEWAY_SERVICE_NAME: str
