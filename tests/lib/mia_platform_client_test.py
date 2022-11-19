@@ -13,7 +13,7 @@ class TestMiaPlatformClient:
 
     def validate_sent_headers(self, required_headers, response):
         """
-        TODO
+        Validate requests headers
         """
 
         headers = response.request.headers.items()
@@ -23,7 +23,7 @@ class TestMiaPlatformClient:
 
     def test_200_get(self, server):
         """
-        TODO
+        Sucessfully retrive the resources from the collection
         """
 
         baseurl, required_headers = server
@@ -53,7 +53,7 @@ class TestMiaPlatformClient:
 
     def test_500_get(self, server):
         """
-        TODO
+        Error on retriving the resources from the collection
         """
 
         baseurl, required_headers = server
@@ -88,7 +88,7 @@ class TestMiaPlatformClient:
 
     def test_200_get_by_id(self, server):
         """
-        TODO
+        Sucessfully retrive the resource :id from the collection
         """
 
         baseurl, required_headers = server
@@ -119,7 +119,7 @@ class TestMiaPlatformClient:
 
     def test_404_get_by_id(self, server):
         """
-        TODO
+        Required resource :id no found in the collection
         """
 
         baseurl, required_headers = server
@@ -153,7 +153,7 @@ class TestMiaPlatformClient:
 
     def test_500_get_by_id(self, server):
         """
-        TODO
+        Error on retriving the resource :id in the collection
         """
 
         baseurl, required_headers = server
@@ -189,7 +189,7 @@ class TestMiaPlatformClient:
 
     def test_200_count(self, server):
         """
-        TODO
+        Sucessfully count the resources in the collection
         """
 
         baseurl, required_headers = server
@@ -219,7 +219,7 @@ class TestMiaPlatformClient:
 
     def test_500_count(self, server):
         """
-        TODO
+        Error on counting the resources in the collection
         """
 
         baseurl, required_headers = server
@@ -256,7 +256,7 @@ class TestMiaPlatformClient:
 
     def test_201_post(self, server):
         """
-        TODO
+        Sucessfully create the resource in the collection
         """
 
         baseurl, required_headers = server
@@ -286,7 +286,7 @@ class TestMiaPlatformClient:
 
     def test_500_post(self, server):
         """
-        TODO
+        Error on creating the resource in the collection
         """
 
         baseurl, required_headers = server
@@ -323,7 +323,7 @@ class TestMiaPlatformClient:
 
     def test_200_put(self, server):
         """
-        TODO
+        Sucessfully overwrite the resouce in the collection
         """
 
         baseurl, required_headers = server
@@ -353,7 +353,7 @@ class TestMiaPlatformClient:
 
     def test_201_put(self, server):
         """
-        TODO
+        Sucessfully create the resource in the collection
         """
 
         baseurl, required_headers = server
@@ -383,7 +383,7 @@ class TestMiaPlatformClient:
 
     def test_500_put(self, server):
         """
-        TODO
+        Error on creating / overwriting the resource in the collection
         """
 
         baseurl, required_headers = server
@@ -418,9 +418,9 @@ class TestMiaPlatformClient:
 
     # Patch
 
-    def test_200_patch(self, server):
+    def test_200_patch_by_id(self, server):
         """
-        TODO
+        Sucessfully update the resource in the collection
         """
 
         baseurl, required_headers = server
@@ -449,9 +449,9 @@ class TestMiaPlatformClient:
 
         self.validate_sent_headers(required_headers, response)
 
-    def test_404_patch(self, server):
+    def test_404_patch_by_id(self, server):
         """
-        TODO
+        Resource :id to update not found in the collection
         """
 
         baseurl, required_headers = server
@@ -483,9 +483,9 @@ class TestMiaPlatformClient:
 
             self.validate_sent_headers(required_headers, response)
 
-    def test_500_patch(self, server):
+    def test_500_patch_by_id(self, server):
         """
-        TODO
+        Error on updating the resource :id in the collection
         """
 
         baseurl, required_headers = server
@@ -521,7 +521,7 @@ class TestMiaPlatformClient:
 
     def test_204_delete(self, server):
         """
-        TODO
+        Sucessfully delete the resources from collection
         """
 
         baseurl, required_headers = server
@@ -548,7 +548,7 @@ class TestMiaPlatformClient:
 
     def test_500_delete(self, server):
         """
-        TODO
+        Error on deleting the resources from the collection
         """
 
         baseurl, required_headers = server
@@ -583,7 +583,7 @@ class TestMiaPlatformClient:
 
     def test_204_delete_by_id(self, server):
         """
-        TODO
+        Sucessfully delete the resource :id from the collection
         """
 
         baseurl, required_headers = server
@@ -611,7 +611,7 @@ class TestMiaPlatformClient:
 
     def test_404_delete_by_id(self, server):
         """
-        TODO
+        Resource :id to delete not found in the collection
         """
 
         baseurl, required_headers = server
@@ -645,7 +645,7 @@ class TestMiaPlatformClient:
 
     def test_500_delete_by_id(self, server):
         """
-        TODO
+        Error on deleting the resource :id from the collection
         """
 
         baseurl, required_headers = server
