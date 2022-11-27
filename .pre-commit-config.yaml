@@ -16,13 +16,3 @@ repos:
         entry: python -m pytest tests
         language: system
         types: [python]
-      - id: coverage
-        name: coverage
-        entry: coverage run -m pytest tests
-        language: system
-        types: [python]
-      - id: coverage report
-        name: coverage report
-        entry: coverage html
-        language: system
-        types: [python]

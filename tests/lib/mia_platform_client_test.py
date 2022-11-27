@@ -56,7 +56,7 @@ class TestMiaPlatformClient:
         Error on retriving the resources from the collection
         """
 
-        baseurl, required_headers = server
+        baseurl, _ = server
 
         url = f'{baseurl}/'
 
@@ -73,16 +73,7 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient GET {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            response = mia_platform_client.get(url)
-
-            # Request
-            assert response.request.url == url
-            assert response.request.method == httpretty.GET
-
-            # Response
-            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-
-            self.validate_sent_headers(required_headers, response)
+            mia_platform_client.get(url)
 
     # Get by id
 
@@ -122,7 +113,7 @@ class TestMiaPlatformClient:
         Required resource :id no found in the collection
         """
 
-        baseurl, required_headers = server
+        baseurl, _ = server
 
         _id = 1
         url = f'{baseurl}/{_id}/'
@@ -140,23 +131,14 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient GET BY ID {url}"
                 f" respond with status code {status.HTTP_404_NOT_FOUND}"
         ):
-            response = mia_platform_client.get_by_id(baseurl, _id)
-
-            # Request
-            assert response.request.url == url
-            assert response.request.method == httpretty.GET
-
-            # Response
-            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-
-            self.validate_sent_headers(required_headers, response)
+            mia_platform_client.get_by_id(baseurl, _id)
 
     def test_500_get_by_id(self, server):
         """
         Error on retriving the resource :id in the collection
         """
 
-        baseurl, required_headers = server
+        baseurl, _ = server
 
         _id = 1
         url = f'{baseurl}/{_id}/'
@@ -174,16 +156,7 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient GET BY ID {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            response = mia_platform_client.get_by_id(baseurl, _id)
-
-            # Request
-            assert response.request.url == url
-            assert response.request.method == httpretty.GET
-
-            # Response
-            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-
-            self.validate_sent_headers(required_headers, response)
+            mia_platform_client.get_by_id(baseurl, _id)
 
     # Count
 
@@ -222,7 +195,7 @@ class TestMiaPlatformClient:
         Error on counting the resources in the collection
         """
 
-        baseurl, required_headers = server
+        baseurl, _ = server
 
         url = f'{baseurl}/count/'
         body = '0'
@@ -241,16 +214,7 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient COUNT {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            response = mia_platform_client.count(baseurl)
-
-            # Request
-            assert response.request.url == url
-            assert response.request.method == httpretty.GET
-
-            # Response
-            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-
-            self.validate_sent_headers(required_headers, response)
+            mia_platform_client.count(baseurl)
 
     # Post
 
@@ -289,7 +253,7 @@ class TestMiaPlatformClient:
         Error on creating the resource in the collection
         """
 
-        baseurl, required_headers = server
+        baseurl, _ = server
 
         url = f'{baseurl}/'
         body = {'key': 'value'}
@@ -308,16 +272,7 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient POST {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            response = mia_platform_client.post(url, data=body)
-
-            # Request
-            assert response.request.url == url
-            assert response.request.method == httpretty.POST
-
-            # Response
-            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-
-            self.validate_sent_headers(required_headers, response)
+            mia_platform_client.post(url, data=body)
 
     # Put
 
@@ -386,7 +341,7 @@ class TestMiaPlatformClient:
         Error on creating / overwriting the resource in the collection
         """
 
-        baseurl, required_headers = server
+        baseurl, _ = server
 
         url = f'{baseurl}/'
         body = {'key': 'value'}
@@ -405,16 +360,7 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient PUT {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            response = mia_platform_client.put(url, json=body)
-
-            # Request
-            assert response.request.url == url
-            assert response.request.method == httpretty.PUT
-
-            # Response
-            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-
-            self.validate_sent_headers(required_headers, response)
+            mia_platform_client.put(url, json=body)
 
     # Patch
 
@@ -454,7 +400,7 @@ class TestMiaPlatformClient:
         Resource :id to update not found in the collection
         """
 
-        baseurl, required_headers = server
+        baseurl, _ = server
 
         _id = 1
         url = f'{baseurl}/{_id}/'
@@ -472,23 +418,14 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient PATCH {url}"
                 f" respond with status code {status.HTTP_404_NOT_FOUND}"
         ):
-            response = mia_platform_client.patch(baseurl, _id)
-
-            # Request
-            assert response.request.url == url
-            assert response.request.method == httpretty.PATCH
-
-            # Response
-            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-
-            self.validate_sent_headers(required_headers, response)
+            mia_platform_client.patch(baseurl, _id)
 
     def test_500_patch_by_id(self, server):
         """
         Error on updating the resource :id in the collection
         """
 
-        baseurl, required_headers = server
+        baseurl, _ = server
 
         _id = 1
         url = f'{baseurl}/{_id}/'
@@ -506,16 +443,7 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient PATCH {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            response = mia_platform_client.patch(baseurl, _id)
-
-            # Request
-            assert response.request.url == url
-            assert response.request.method == httpretty.PATCH
-
-            # Response
-            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-
-            self.validate_sent_headers(required_headers, response)
+            mia_platform_client.patch(baseurl, _id)
 
     # Delete
 
@@ -551,7 +479,7 @@ class TestMiaPlatformClient:
         Error on deleting the resources from the collection
         """
 
-        baseurl, required_headers = server
+        baseurl, _ = server
 
         url = f'{baseurl}/'
 
@@ -568,16 +496,7 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient DELETE {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            response = mia_platform_client.delete(url)
-
-            # Request
-            assert response.request.url == url
-            assert response.request.method == httpretty.DELETE
-
-            # Response
-            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-
-            self.validate_sent_headers(required_headers, response)
+            mia_platform_client.delete(url)
 
     # Delete by id
 
@@ -614,7 +533,7 @@ class TestMiaPlatformClient:
         Resource :id to delete not found in the collection
         """
 
-        baseurl, required_headers = server
+        baseurl, _ = server
 
         _id = 1
         url = f'{baseurl}/{_id}/'
@@ -632,23 +551,14 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient DELETE BY ID {url}"
                 f" respond with status code {status.HTTP_404_NOT_FOUND}"
         ):
-            response = mia_platform_client.delete_by_id(baseurl, _id)
-
-            # Request
-            assert response.request.url == url
-            assert response.request.method == httpretty.DELETE
-
-            # Response
-            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-
-            self.validate_sent_headers(required_headers, response)
+            mia_platform_client.delete_by_id(baseurl, _id)
 
     def test_500_delete_by_id(self, server):
         """
         Error on deleting the resource :id from the collection
         """
 
-        baseurl, required_headers = server
+        baseurl, _ = server
 
         _id = 1
         url = f'{baseurl}/{_id}/'
@@ -666,13 +576,4 @@ class TestMiaPlatformClient:
             match=f"Error - MiaPlatformClient DELETE BY ID {url}"
                 f" respond with status code {status.HTTP_500_INTERNAL_SERVER_ERROR}"
         ):
-            response = mia_platform_client.delete_by_id(baseurl, _id)
-
-            # Request
-            assert response.request.url == url
-            assert response.request.method == httpretty.DELETE
-
-            # Response
-            assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-
-            self.validate_sent_headers(required_headers, response)
+            mia_platform_client.delete_by_id(baseurl, _id)

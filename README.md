@@ -1,5 +1,14 @@
 # Python FastAPI Hello World Microservice Example
 
+[![Python
+version](https://img.shields.io/badge/python-v3.10-blue)](.coverage/html/index.html)
+[![FastAPI
+version](https://img.shields.io/badge/fastapi-v0.78.0-blue)](.coverage/html/index.html)
+
+[![Coverage](.badges/coverage-badge.svg)](.coverage/html/index.html)
+
+---
+
 ## Local development
 
 To develop the service locally you need:

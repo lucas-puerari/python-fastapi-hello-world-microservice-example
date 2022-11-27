@@ -13,6 +13,7 @@ distlib==0.3.6
 exceptiongroup==1.0.0
 fastapi==0.78.0
 filelock==3.8.0
+genbadge==1.1.0
 h11==0.13.0
 httpretty==1.1.4
 identify==2.5.8
@@ -23,6 +24,7 @@ lazy-object-proxy==1.8.0
 mccabe==0.7.0
 nodeenv==1.7.0
 packaging==21.3
+Pillow==9.3.0
 platformdirs==2.5.2
 pluggy==1.0.0
 pre-commit==2.20.0
