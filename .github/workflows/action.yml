@@ -30,5 +30,7 @@ jobs:
         run: python -m pytest tests
       - name: Compute coverage
         run: |
-          coverage run -m pytest tests
-          coverage html
+          coverage run --data-file .coverage/data -m pytest tests
+          coverage html --data-file .coverage/data -d .coverage/html
+          coverage xml --data-file  .coverage/data -o .coverage/xml
+          genbadge coverage -i .coverage/xml -o .badges/coverage-badge.svg
