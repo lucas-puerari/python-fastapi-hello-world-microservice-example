@@ -7,6 +7,10 @@ BADGES_DIR = .badges
 COVERAGE_BADGE_FILE = ${BADGES_DIR}/coverage-badge.svg
 
 
+setup:
+	pip install -r requirements.txt
+	pre-commit install
+
 start:
 	python -m src.app
 

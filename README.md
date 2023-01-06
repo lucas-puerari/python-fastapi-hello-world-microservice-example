@@ -31,13 +31,6 @@ command:
 deactivate
 ```
 
-Once you have the virtual environment in place, you need to install the
-dependencies listed in *requirements.txt* file:
-
-```shell
-pip install -r requirements.txt
-```
-
 During development, you will probably have to perform the same operations many
 times: start the application locally, check the code quality, run tests and compute coverage. Therefore,
 to avoid to remember each time the syntax of the commands to be executed, the
@@ -45,12 +38,17 @@ main commands were collected in a Makefile. [Makefile](https://www.gnu.org/softw
 that contains the recipe to build and run your program. So, listed below are the
 commands that can be executed by the make command:
 
+Install requirements and pre-commit:
+```shell
+make setup
+```
+
 Run application locally:
 ```shell
 make start
 ```
 
-Run linter for code quality:
+Run linter:
 ```shell
 make lint
 ```
